@@ -11,7 +11,7 @@ pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
 
 final_transaction_df = pd.read_csv('transaction.csv')
-product_df = pd.read_csv('product.csv')
+products_df = pd.read_csv('product.csv')
 
 ##################test distribution#######################
 transaction_df_seg = final_transaction_df.merge(products_df, on='product_id', how='left')
