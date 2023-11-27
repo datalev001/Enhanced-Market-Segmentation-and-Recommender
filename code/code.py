@@ -1,22 +1,18 @@
-
-#####################################
-
 import pandas as pd
 import numpy as np
 import random
 import string
+import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
 
-final_transaction_df = pd.read_csv('transaction.csv')
-products_df = pd.read_csv('product.csv')
+transaction_df = pd.read_csv('transaction.csv')
+product_df = pd.read_csv('product.csv')
 
-##################test distribution#######################
-transaction_df_seg = final_transaction_df.merge(products_df, on='product_id', how='left')
+transaction_df_seg = transaction_df.merge(products_df, on='product_id', how='left')
 transaction_df_seg = transaction_df_seg.sort_values(['transaction_date'])
-
 
 prduct_seg = ["Wellness Essentials", "Chic & Trendy",
       "Home Comforts", "Gourmet Delights",
@@ -27,7 +23,6 @@ def segment_customers(transaction_df, product_df,
                       avg_qty_thresh, prduct_seg):
     
     # Step 1: Merge transaction_df and product_df and sort by transaction_date
-    
     product_df_cp = product_df[product_df.segment.isin(prduct_seg)]
     df_seg = transaction_df.merge(product_df_cp, on='product_id', how='inner')
     df_seg = df_seg.sort_values(['transaction_date'])
@@ -64,12 +59,8 @@ def segment_customers(transaction_df, product_df,
     return final_result
 
 # Call the function with your transaction_df, product_df, transaction_times_thresh, and avg_qty_thresh
-
 transaction_times_thresh, avg_qty_thresh = 2, 2
-customer_seg = segment_customers(transaction_df, product_df, 
-                   transaction_times_thresh, avg_qty_thresh, prduct_seg)
-
-########################
+customer_seg = segment_customers(transaction_df, product_df, transaction_times_thresh, avg_qty_thresh, prduct_seg)
 
 def segment_product(transaction_df, product_df, customer_seg):
     # Step 1: Get unique customer segments
@@ -123,12 +114,9 @@ def segment_product(transaction_df, product_df, customer_seg):
 
 # Call the function with your transaction_df, product_df, and customer_seg
 resulting_dataframes = segment_product(transaction_df, product_df, customer_seg)
-
-######################################################################
-
 num_thresh_buy_ratio = 15
+
 def update_product_segment(product_df, result_dict, num_thresh_buy_ratio):
-    
     product_df_update = product_df.copy()
     segments = list(result_dict.keys())
     product_exists = list(set(product_df[product_df.segment.isin(segments)]['product_id']))
@@ -173,8 +161,7 @@ c =  ["Wellness Essentials", "Chic & Trendy",
       "Home Comforts", "Gourmet Delights",
       "Family Essentials", "Tech & Gadgets"]
 
-# set initial python list that contain the initial number
-# of products with segment allocation   
+# set initial python list that contain the initial number of products with segment allocation   
 segs =  ["Wellness Essentials", "Chic & Trendy",
       "Home Comforts", "Gourmet Delights",
       "Family Essentials", "Tech & Gadgets"]
@@ -205,9 +192,6 @@ for j in range(10):
         product_assigned_lst.append(product_assigned_n)
         print ('now there are ' +  str(product_assigned_n) + \
         ' products are assigned segment')
-            
-
-import matplotlib.pyplot as plt
 
 # Number of products assigned to segments in each iteration
 segment_allocation = [32, 54, 81, 108]
@@ -228,7 +212,6 @@ plt.annotate(f"Final Value: {final_value}", (len(segment_allocation), final_valu
 
 plt.show()
 
-#####################################################################
 def product_segment_prob(result_dict):
     result_dict = resulting_dataframes.copy()
     # Create an empty DataFrame with 'product_id'
