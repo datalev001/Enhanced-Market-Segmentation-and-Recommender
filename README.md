@@ -1,4 +1,5 @@
-# Enhanced-Market-Segmentation-and-Recommender
+#A Data-Driven Approach for Enhanced Market Segmentation and Recommender Systems 
+
 A Self-Made Market Segmentation in Recommendation
 
 This post looks into the field of data science research, with a particular emphasis on market segmentation and recommendation systems. I explore a new algorithm poised not only to categorize products previously left unclassified but also to empower businesses with the capacity to furnish personalized product recommendations to their cherished clientele.
